@@ -3,15 +3,32 @@
 # @Time : 2021/4/21 下午4:54 
 # @Author : yuanhao-wang
 # @Filename : user_perm.py
-from django.views import View
+from utils.params_check import Resp
 
-class UserPerm(View):
+
+class UserPerm(Resp):
     """
     用户权限
     """
 
-    def get(self, request):
-        pass
+    def list(self, headers, data, files=None, key=None):
+        params = (
+            ('page', int),
+            ('size', int),
+        )
+        code, error_msg, res_data = self.params_check(data=data, params=params)
+        if code != 0:
+            return self.data(errcode=code, errmsg=error_msg)
 
-    def post(self, request):
-        pass
+        return self.data(data=data)
+
+    def post(self, headers, data, files=None, key=None):
+        params = (
+            ('page', int),
+            ('size', int),
+        )
+        code, error_msg, res_data = self.params_check(data=data, params=params)
+        if code != 0:
+            return self.data(errcode=code, errmsg=error_msg)
+
+        return self.data(data=data)

@@ -11,9 +11,13 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 import os
+import logging.config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# 日志
+log_conf = os.path.join(BASE_DIR, "conf/pro_log.conf")
+logging.config.fileConfig(log_conf)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -132,3 +136,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Celery配置
+
+CELERY_TIMEZONE = 'Asia/Shanghai'
+
+CELERY_ENABLE_UTC = False
+
+CELERY_TASK_SERIALIZER = 'json'
+
+CELERY_RESULT_SERIALIZER = 'json'
+
+CELERY_RESULT_EXPIRES = 60 * 60 * 24
+
+# 防止celery 延时任务重复发送
+CELERY_BROKER_TRANSPORT_OPTIONS = {'visibility_timeout': 2678400}
+
+CELERY_IMPORTS = ()
+
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/15'
+
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/15'

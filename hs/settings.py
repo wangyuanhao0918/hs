@@ -14,7 +14,7 @@ import os
 import logging.config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # 日志
 log_conf = os.path.join(BASE_DIR, "conf/pro_log.conf")
 logging.config.fileConfig(log_conf)
